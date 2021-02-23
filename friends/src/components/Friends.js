@@ -29,7 +29,7 @@ export default function Friends() {
     <div>
       {
         friends.map(friend => {
-          return <Friend friend={friend} />
+          return <Friend key={friend.id} friend={friend} />
         })
       }
     </div>

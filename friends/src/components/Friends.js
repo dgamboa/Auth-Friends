@@ -4,6 +4,9 @@ import React, { useState, useEffect } from 'react'
 // Utils
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
+// Components
+import Friend from './Friend';
+
 export default function Friends() {
   const [friends, setFriends] = useState([]);
 
@@ -26,7 +29,7 @@ export default function Friends() {
     <div>
       {
         friends.map(friend => {
-          <Friend friend={friend} />
+          return <Friend friend={friend} />
         })
       }
     </div>

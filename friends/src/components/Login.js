@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 
 const initialState = {
   username: "",
@@ -19,6 +20,16 @@ export default function Login() {
 
   const login = e => {
     e.preventDefault();
+    axios
+      .post("http://localhost:5000/api/login", credentials)
+      .then(res => {
+        const token = JSON.stringify(res.data.payload);
+        localStorage.setItem("token", token);
+        // go to next page with history.push
+      })
+      .catch(err => {
+        setError(err.response.data.error)
+      })
   }
 
   return (

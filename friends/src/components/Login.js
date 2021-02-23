@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner'
-import { useHistory } from "react-router-dom";
 
 const initialState = {
   username: "",
   password: ""
 };
 
-export default function Login() {
+export default function Login(props) {
   const [credentials, setCredentials] = useState(initialState);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    if (props.location.state) {
+      setError(props.location.state.error)
+    }
+  }, [])
+  
   const history = useHistory();
 
   const handleChange = e => {

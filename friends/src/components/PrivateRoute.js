@@ -3,15 +3,19 @@ import { Route, Redirect } from "react-router-dom";
 
 export default function PrivateRoute({ component: Component, ...rest }) {
   return (
-    <Route>
+    <Route
       {...rest}
       render={() => {
         if (localStorage.getItem("token")) {
           return <Component />;
         } else {
-          return <Redirect to="/login"/>;
+          return <Redirect to={{
+                    pathname: "/login",
+                    state: { error: "Please log in to access that URL" }
+                  }}
+                 />;
         }
       }}
-    </Route>
+    />
   );
 };

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import Spinner from 'react-bootstrap/Spinner'
+import { useHistory } from "react-router-dom";
 
 const initialState = {
   username: "",
@@ -9,6 +11,9 @@ const initialState = {
 export default function Login() {
   const [credentials, setCredentials] = useState(initialState);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const history = useHistory();
 
   const handleChange = e => {
     setCredentials({
@@ -20,16 +25,18 @@ export default function Login() {
 
   const login = e => {
     e.preventDefault();
+    setIsLoading(true);
     axios
       .post("http://localhost:5000/api/login", credentials)
       .then(res => {
         const token = JSON.stringify(res.data.payload);
         localStorage.setItem("token", token);
-        // go to next page with history.push
+        history.push("/friends");
       })
       .catch(err => {
         setError(err.response.data.error)
-      })
+      });
+    setIsLoading(false);
   }
 
   return (
@@ -51,7 +58,13 @@ export default function Login() {
             onChange={handleChange}
           />
         </label>
-        <button>Log In</button>
+        {
+          isLoading
+            ? <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            : <button>Log In</button>
+        }
         <p>{error}</p>
       </form>
     </div>

@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Nav from 'react-bootstrap/Nav';
 import { useHistory } from 'react-router-dom';
 
-export default function NavBar({ loggedIn }) {
+export default function NavBar() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setLoggedIn(true);
+    };
+  })
+
   const history = useHistory();
 
   const goHome = () => {
@@ -15,6 +23,7 @@ export default function NavBar({ loggedIn }) {
 
   const logout = () => {
     localStorage.removeItem("token");
+    setLoggedIn(false);
     history.push("/");
   };
   

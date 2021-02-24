@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const initialValues = {
@@ -9,6 +10,8 @@ const initialValues = {
 
 export default function AddFriend() {
   const [formValues, setFormValues] = useState(initialValues);
+
+  const history = useHistory();
 
   const handleChange = e => {
     const value = e.target.name === "age"
@@ -25,8 +28,8 @@ export default function AddFriend() {
     e.preventDefault();
     axiosWithAuth()
       .post("/api/friends", formValues)
-      .then(res => {
-        console.log(res);
+      .then(() => {
+        history.push("/friends");
       })
       .catch(err => {
         console.log(err);

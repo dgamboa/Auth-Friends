@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Nav from 'react-bootstrap/Nav';
 import { useHistory } from 'react-router-dom';
 
-export default function NavBar() {
-  const [loggedIn, setLoggedIn] = useState(false);
+export default function NavBar({ loggedIn, setLoggedIn }) {
 
   const history = useHistory();
 

@@ -1,5 +1,5 @@
 // Modules
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from 'react-router-dom';
 
 // Components
@@ -13,14 +13,20 @@ import NavBar from './components/NavBar';
 import './App.css';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <div className="App">
-      <NavBar />
+      <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
       <Switch>
         <PrivateRoute exact path="/friends" component={Friends}/>
         <PrivateRoute exact path="/add-friend" component={AddFriend}/>
-        <Route path="/login" component={Login}/>
-        <Route component={Login}/>
+        <Route
+          path="/"
+          render={(props) => {
+            return <Login {...props} setLoggedIn={setLoggedIn}/>
+          }}
+        />
       </Switch>
     </div>
   );

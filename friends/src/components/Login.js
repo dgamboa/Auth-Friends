@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -18,8 +17,6 @@ export default function Login(props) {
       setError(props.location.state.error)
     }
   }, [])
-  
-  const history = useHistory();
 
   const handleChange = e => {
     setCredentials({
@@ -37,10 +34,12 @@ export default function Login(props) {
       .then(res => {
         const token = JSON.stringify(res.data.payload);
         localStorage.setItem("token", token);
-        history.push("/friends");
+        props.setLoggedIn(true);
+        props.history.push("/friends");
       })
       .catch(err => {
-        setError(err.response.data.error)
+        console.log({err})
+        // setError(err.response.data.error)
       });
     setIsLoading(false);
   }

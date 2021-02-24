@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import Spinner from 'react-bootstrap/Spinner'
+import Spinner from 'react-bootstrap/Spinner';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const initialState = {
   username: "",
@@ -45,33 +47,36 @@ export default function Login(props) {
   }
 
   return (
-    <div>
-      <form onSubmit={login}>
-        <label>Username: 
-          <input 
+      <Form className="w-25 login-form" onSubmit={login}>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
             type="text"
             name="username"
             value={credentials.username || ""}
             onChange={handleChange}
           />
-        </label>
-        <label>Password: 
-          <input 
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
             name="password"
             value={credentials.password || ""}
             onChange={handleChange}
           />
-        </label>
+        </Form.Group>
         {
           isLoading
             ? <Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
               </Spinner>
-            : <button>Log In</button>
+            : <Button variant="primary" type="submit">
+                Log In
+              </Button>
         }
         <p>{error}</p>
-      </form>
-    </div>
+      </Form>
   )
 };

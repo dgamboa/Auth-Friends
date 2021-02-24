@@ -5,12 +5,6 @@ import { useHistory } from 'react-router-dom';
 export default function NavBar() {
   const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setLoggedIn(true);
-    };
-  })
-
   const history = useHistory();
 
   const goHome = () => {

@@ -12,8 +12,12 @@ import NavBar from './components/NavBar';
 // Styles
 import './App.css';
 
+const initialLoggedIn = () => {
+  return !!localStorage.getItem("token");
+};
+
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(initialLoggedIn);
 
   return (
     <div className="App">

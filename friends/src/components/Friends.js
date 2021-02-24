@@ -26,12 +26,12 @@ export default function Friends() {
   }
   
   return (
-    <div>
+    <section className="friends">
       {
         friends.map(friend => {
           return <Friend key={friend.id} friend={friend} />
         })
       }
-    </div>
+    </section>
   )
 }

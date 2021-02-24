@@ -40,8 +40,7 @@ export default function Login(props) {
         props.history.push("/friends");
       })
       .catch(err => {
-        console.log({err})
-        // setError(err.response.data.error)
+        setError(err.response.data.error)
       });
     setIsLoading(false);
   }

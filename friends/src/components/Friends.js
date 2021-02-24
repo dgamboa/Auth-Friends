@@ -29,7 +29,12 @@ export default function Friends() {
     <section className="friends">
       {
         friends.map(friend => {
-          return <Friend key={friend.id} friend={friend} />
+          return <Friend
+                    key={friend.id}
+                    friend={friend}
+                    friends={friends}
+                    setFriends={setFriends}
+                 />
         })
       }
     </section>

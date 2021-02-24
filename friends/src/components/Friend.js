@@ -1,14 +1,29 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-export default function Friend({ friend }) {
-  const editFriend = () => {
-    console.log("edit")
+export default function Friend({ friend, friends, setFriends }) {
+  const editFriend = (friend) => {
+    axiosWithAuth()
+      .put(`/api/friends/${friend.id}`)
+      .then(res => {
+        setFriends(res.data);
+      })
+      .catch(err => {
+        console.log({ err })
+      })
   };
 
-  const deleteFriend = () => {
-    console.log("delete")
+  const deleteFriend = (friend) => {
+    axiosWithAuth()
+      .delete(`/api/friends/${friend.id}`)
+      .then(res => {
+        setFriends(res.data);
+      })
+      .catch(err => {
+        console.log({ err })
+      })
   };
 
   return (
@@ -24,14 +39,16 @@ export default function Friend({ friend }) {
         <Button
           variant="primary"
           className="friend-button"
-          onClick={editFriend}
+          value={friend}
+          onClick={() => editFriend(friend)}
         >
           Edit
         </Button>
         <Button
           variant="danger"
           className="friend-button"
-          onClick={deleteFriend}
+          value={friend}
+          onClick={() => deleteFriend(friend)}
         >
           Delete
         </Button>

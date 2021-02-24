@@ -5,14 +5,7 @@ import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 export default function Friend({ friend, friends, setFriends }) {
   const editFriend = (friend) => {
-    axiosWithAuth()
-      .put(`/api/friends/${friend.id}`)
-      .then(res => {
-        setFriends(res.data);
-      })
-      .catch(err => {
-        console.log({ err })
-      })
+    console.log("edit");
   };
 
   const deleteFriend = (friend) => {
